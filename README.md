@@ -1,20 +1,16 @@
 Юшков Артём Витальевич УИБО-13-24
 
 # Контрольная работа 2
-*Преловский Егор Вячеславович*
-*Группа УИБО-13-24*
   
 ## Задание 1. SQL-injection и логин с административными правами
 При вводе значка ' в поле логин и случаного пароля получаем странный ответ.
-<img width="629" height="658" alt="image" src="https://github.com/user-attachments/assets/ba690a28-2f1e-4077-8c27-8d13b427e96a" />
-<img width="970" height="958" alt="image" src="https://github.com/user-attachments/assets/bde1188a-cdad-4b90-be55-64b31fc0edc2" />
+
 
 Ошибка показывет что проблема с базой данной а не с введнном паролем
 Это означает что база данных пользователей реализована с уязвимостями
 
 Ввод ' OR true;-- выдает все еще же ту ошибку надо сделать так чтобы только эттот код использовался без посторониих - поэтому пишем ' OR true-- это позволило залогиниться по пользователем admin@juice-sh.op. Предположим, что это администратор.
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/d4f76f91-4410-416b-b04d-c1c686324b0d" />
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6c419be2-96aa-44e8-a0dd-610cc107957e" />
+
 
 
 ## Ответы на вопросы
@@ -47,14 +43,14 @@ SELECT * FROM users WHERE username = 'admin' AND password = '' or 1=1
 Почта: admin@juice-sh.op
 
 Находясь после SQL под логином администратора - включаем DevTools и обновляем страницу OWAS Juice. Переходим в запрос домена - и находим заголовок кукис. Находим IDTOKEN
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/b3996dd9-c677-4beb-9f40-d15418800f15" />
+
 
 Копируем его Декодируем онлайн с помощью ИИ. Получаем результат:
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/f7fb1d27-1037-409e-81e7-1020c0751f89" />
+
 
  Хэш "password": "0192023a7bbd73250516f069df18b500". Атака на него даже с помощью онлайн крэкера позволяет узнать строку пароля - admin123:
 
-<img width="1881" height="1052" alt="image" src="https://github.com/user-attachments/assets/8b7f5ba4-7669-4844-a862-dd340b9f02bd" />
+
 
 Пароль: admin123
 
@@ -84,11 +80,11 @@ admin@juice-sh.op
 ## Задание 3. «Чужая корзина»
 
 Открыл свою корзину и начал смотреть в session storage
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/ffc96599-1faf-4db4-b12b-b09f44a06368" />
+
 Начал изменять количество товаров, вижу что меняется itemtotal
 Предпологаю что bid это индентификатор, изменяю число bid на 3
 вижу что корзина меняется и остается такой же при перезагрузке страницы, корзина изменена на корзину другого пользователя
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/0d36c15e-515d-49b5-91a1-71f43876602c" />
+
 
 ### 1. Наименование параметра, который отвечает за открываемую корзину.
 BID
@@ -97,10 +93,10 @@ BID
 
 ## Задание 4. XSS-инъекция
 Ввожу в поле поиска `<h1>owasp<h1>` для проверки возможности XSS-инъекция
-<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/025fea22-a2aa-4036-b634-db250bde4dfb" />
+
 
 Видим что успешно создался элемент, можно попробовать что-то более интересное например `<a href="javascript:alert('XSS');">Click me</a>`
-<img width="1915" height="1074" alt="image" src="https://github.com/user-attachments/assets/20e18641-cae6-4ad0-a63c-b2397cf2ac98" />
+
 
 При нажатии Click Me можно вызвать уведомление тем самым злоумышленники смогут воспользоваться этим делаю ссылки на вирусы и т.д
 
